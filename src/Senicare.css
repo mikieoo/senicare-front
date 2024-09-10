@@ -26,6 +26,11 @@ body {
     font-family: 'Pretendard', sans-serif;
 }
 
+#main-wrapper {
+    padding: 24px;
+    background-color: rgba(238, 238, 238, 0.5);
+}
+
 .message.error {
     color: var(--error-color);
 }
@@ -53,6 +58,11 @@ body {
 
 .button.primary {
     background-color: var(--primary-color);
+}
+
+.button.second {
+    background-color: var(--primary-10-color);
+    color: var(--primary-color);
 }
 
 .button.disable {
