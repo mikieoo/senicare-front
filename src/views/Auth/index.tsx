@@ -256,7 +256,7 @@ function SignUp({ onPathChange }: AuthComponentProps) {
             password, 
             telNumber, 
             authNumber,
-            joinPath: joinPath ? joinPath : 'home', 
+            joinPath: joinPath ? joinPath : 'home',
             snsId
         };
 
