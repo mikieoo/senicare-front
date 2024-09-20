@@ -1,10 +1,10 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import './style.css';
 import { useCookies } from 'react-cookie';
 import { ACCESS_TOKEN } from 'src/constants';
 import { access } from 'fs';
 import { PostToolRequestDto } from 'src/apis/dto/request/tool';
-import { postToolRequest } from 'src/apis';
+import { getToolListRequest, postToolRequest } from 'src/apis';
 import { ResponseDto } from 'src/apis/dto/response';
 
 // interface: 용품 등록 컴포넌트 properties //
@@ -130,6 +130,9 @@ function PatchBox() {
 // component: 용품 관리 리스트 컴포넌트 //
 export default function MM() {
 
+    // state: cookie 상태 //
+    const [cookies] = useCookies();
+
     // state: 등록 및 수정 박스 뷰 상태 //
     const [showPostBox, setShowPostBox] = useState<boolean>(false);
     const [showPatchBox, setShowPatchBox] = useState<boolean>(false);
@@ -142,6 +145,13 @@ export default function MM() {
         setShowPostBox(true);
         setShowPatchBox(false);
     }
+
+    // effect: 컴포넌트 로드 시 용품 리스트 불러오기 함수 //
+    useEffect(() => {
+        const accessToken = cookies[ACCESS_TOKEN];
+        if (!accessToken) return;
+        getToolListRequest(accessToken).then();
+    }, [])
 
     // render: 용품 관리 리스트 컴포넌트 렌더링 //
     return (
