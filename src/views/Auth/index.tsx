@@ -14,7 +14,6 @@ type AuthPath = '회원가입' | '로그인';
 
 interface SnsContainerProps {
     type: AuthPath;
-
 }
 
 // component: SNS 로그인 회원가입 컴포넌트 //
