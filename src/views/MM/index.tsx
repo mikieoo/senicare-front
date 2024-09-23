@@ -29,9 +29,9 @@ function PostBox({ unShow }: PostBoxProps) {
     const postToolResponse = (responseBody: ResponseDto | null) => {
         const message =
             !responseBody ? '서버에 문제가 있습니다.' :
-                responseBody.code === 'VF' ? '모두 입력해주세요.' :
-                    responseBody.code === 'AF' ? '잘못된 접근입니다.' :
-                        responseBody.code === 'DBE' ? '서버에 문제가 있습니다.' : '';
+            responseBody.code === 'VF' ? '모두 입력해주세요.' :
+            responseBody.code === 'AF' ? '잘못된 접근입니다.' :
+            responseBody.code === 'DBE' ? '서버에 문제가 있습니다.' : '';
 
         const isSuccessed = responseBody !== null && responseBody.code === 'SU';
         if (!isSuccessed) {
@@ -184,11 +184,11 @@ export default function MM() {
 
     // function: get tool list response 처리 함수 //
     const getToolListResponse = (responseBody: GetToolListResponseDto | ResponseDto | null) => {
-        const message = 
-            !responseBody ? '서버에 문제가 있습니다.' : 
-            responseBody.code === 'AF' ? '잘못된 접근입니다.' : 
-            responseBody.code === 'DBE' ? '서버에 문제가 있습니다.' : '';
-        
+        const message =
+            !responseBody ? '서버에 문제가 있습니다.' :
+                responseBody.code === 'AF' ? '잘못된 접근입니다.' :
+                    responseBody.code === 'DBE' ? '서버에 문제가 있습니다.' : '';
+
         const isSuccessed = responseBody !== null && responseBody.code === 'SU';
         if (!isSuccessed) {
             alert(message);
