@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 
 // variable: 페이지 당 아이템 수 //
 const ITEMS_PER_PAGE = 5;
-
 // variable: 섹션 당 페이지 수 //
 const PAGES_PER_SECTION = 5;
 
@@ -26,14 +25,11 @@ const usePagination = <T>() => {
         const totalSection = Math.ceil(totalPage / PAGES_PER_SECTION);
         setTotalSection(totalSection);
 
-        if (!totalCount) {
-            setCurrentPage(0);
-            setCurrentSection(0);
-        } else {
-            setCurrentPage(1);
-            setCurrentSection(1);
-        }
-    }
+        setCurrentPage(1);
+        setCurrentSection(1);
+
+        initViewList(totalList);
+    };
 
     // function: 페이지 변경 함수 //
     const initViewList = (totalList: T[]) => {
@@ -44,7 +40,7 @@ const usePagination = <T>() => {
 
         const viewList = totalList.slice(startIndex, endIndex);
         setViewList(viewList);
-    }
+    };
 
     // function: 섹션 변경 함수 //
     const initPageList = (totalPage: number) => {
@@ -52,39 +48,38 @@ const usePagination = <T>() => {
             setPageList([]);
             return;
         }
-        const startPage = PAGES_PER_SECTION * currentSection - (PAGES_PER_SECTION - 1); // 시작 페이지
-        let endPage = PAGES_PER_SECTION * currentSection; // 종료 페이지
+
+        const startPage = PAGES_PER_SECTION * currentSection - (PAGES_PER_SECTION - 1);
+        let endPage = PAGES_PER_SECTION * currentSection;
         if (endPage > totalPage) endPage = totalPage;
 
         const pageList = [];
         for (let page = startPage; page <= endPage; page++) {
             pageList.push(page);
         }
-
         setPageList(pageList);
-    }
+    };
 
-    
     // event handler: 페이지 클릭 이벤트 처리 함수 //
     const onPageClickHandler = (page: number) => {
         setCurrentPage(page);
-    }
+    };
 
     // event handler: 이전 섹션 클릭 이벤트 처리 함수 //
     const onPreSectionClickHandler = () => {
         if (currentSection <= 1) return;
         setCurrentSection(currentSection - 1);
         setCurrentPage((currentSection - 1) * PAGES_PER_SECTION);
-    }
+    };
 
     // event handler: 다음 섹션 클릭 이벤트 처리 함수 //
     const onNextSectionClickHandler = () => {
         if (currentSection === totalSection) return;
         setCurrentSection(currentSection + 1);
         setCurrentPage(currentSection * PAGES_PER_SECTION + 1);
-    }
+    };
 
-    // effect: totalList 변경될 시 실행할 함수 //
+    // effect: totalList가 변경될 시 실행할 함수 //
     useEffect(() => {
         init(totalList);
     }, [totalList]);
@@ -92,11 +87,11 @@ const usePagination = <T>() => {
     // effect: 현재 섹션이 변경될 시 실행할 함수 //
     useEffect(() => {
         initPageList(totalPage);
-    }, [currentSection]);
+    }, [totalCount, currentSection]);
 
     // effect: 현재 페이지가 변경될 시 실행할 함수 //
     useEffect(() => {
-        initViewList(totalList)
+        initViewList(totalList);
     }, [currentPage]);
 
     return {
@@ -106,12 +101,11 @@ const usePagination = <T>() => {
         viewList,
         pageList,
         setTotalList,
-        initViewList, 
-        initPageList,
+        initViewList,
         onPageClickHandler,
         onPreSectionClickHandler,
         onNextSectionClickHandler
-    }
+    };
 };
 
 export default usePagination;
