@@ -10,7 +10,7 @@ import { GetToolListResponseDto, GetToolResponseDto } from 'src/apis/dto/respons
 import { usePagination } from 'src/hooks';
 import Pagination from 'src/components/Pagination';
 
-// interface: 용품 등록 컴포넌트 properties //
+// interface: 용품 등록 컴포넌트 Properties //
 interface PostBoxProps {
     unShow: () => void;
     getToolList: () => void;
@@ -29,12 +29,12 @@ function PostBox({ unShow, getToolList }: PostBoxProps) {
 
     // function: post tool response 처리 함수 //
     const postToolResponse = (responseBody: ResponseDto | null) => {
-        const message =
+        const message = 
             !responseBody ? '서버에 문제가 있습니다.' :
             responseBody.code === 'VF' ? '모두 입력해주세요.' :
             responseBody.code === 'AF' ? '잘못된 접근입니다.' :
             responseBody.code === 'DBE' ? '서버에 문제가 있습니다.' : '';
-
+        
         const isSuccessed = responseBody !== null && responseBody.code === 'SU';
         if (!isSuccessed) {
             alert(message);
@@ -43,19 +43,19 @@ function PostBox({ unShow, getToolList }: PostBoxProps) {
 
         getToolList();
         unShow();
-    }
+    };
 
     // event handler: 용품 이름 변경 이벤트 처리 함수 //
     const onNameChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target;
         setName(value);
-    }
+    };
 
     // event handler: 용도 변경 이벤트 처리 함수 //
     const onPurposeChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target;
         setPurpose(value);
-    }
+    };
 
     // event handler: 개수 변경 이벤트 처리 함수 //
     const onCountChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -64,7 +64,7 @@ function PostBox({ unShow, getToolList }: PostBoxProps) {
         const isNumber = regexp.test(value);
         if (!isNumber) return;
         setCount(value);
-    }
+    };
 
     // event handler: 등록 버튼 클릭 이벤트 처리 함수 //
     const onPostButtonClickHandler = () => {
@@ -75,13 +75,12 @@ function PostBox({ unShow, getToolList }: PostBoxProps) {
             alert('모두 입력해주세요.');
             return;
         }
-
         const requestBody: PostToolRequestDto = {
             name, purpose, count: Number(count)
         };
 
         postToolRequest(requestBody, accessToken).then(postToolResponse);
-    }
+    };
 
     // render: 용품 등록 컴포넌트 렌더링 //
     return (
@@ -104,9 +103,10 @@ function PostBox({ unShow, getToolList }: PostBoxProps) {
             <div className='button disable' onClick={unShow}>취소</div>
         </div>
     )
+
 }
 
-// interface: 용품 수정 컴포넌트 properties //
+// interface: 용품 수정 컴포넌트 Properties //
 interface PatchBoxProps {
     toolNumber: number;
     unShow: () => void;
@@ -126,11 +126,11 @@ function PatchBox({ toolNumber, unShow, getToolList }: PatchBoxProps) {
 
     // function: get tool response 처리 함수 //
     const getToolResponse = (responseBody: GetToolResponseDto | ResponseDto | null) => {
-        const message = 
-            !responseBody ? '서버에 문제가 있습니다.' : 
-            responseBody.code === 'VF' ? '잘못된 접근입니다.' : 
-            responseBody.code === 'AF' ? '잘못된 접근입니다.' : 
-            responseBody.code === 'NT' ? '존재하지 않는 용품입니다.' : 
+        const message =
+            !responseBody ? '서버에 문제가 있습니다.' :
+            responseBody.code === 'VF' ? '잘못된 접근입니다.' :
+            responseBody.code === 'AF' ? '잘못된 접근입니다.' :
+            responseBody.code === 'NT' ? '존재하지 않는 용품입니다.' :
             responseBody.code === 'DBE' ? '서버에 문제가 있습니다.' : '';
 
         const isSuccessed = responseBody !== null && responseBody.code === 'SU';
@@ -144,38 +144,38 @@ function PatchBox({ toolNumber, unShow, getToolList }: PatchBoxProps) {
         setName(name);
         setPurpose(purpose);
         setCount(String(count));
-    }
+    };
 
     // function: patch tool response 처리 함수 //
     const patchToolResponse = (responseBody: ResponseDto | null) => {
-        const message = 
-            !responseBody ? '서버에 문제가 있습니다.' : 
+        const message =
+            !responseBody ? '서버에 문제가 있습니다.' :
             responseBody.code === 'VF' ? '모든 값을 입력해주세요.' : 
-            responseBody.code === 'AF' ? '잘못된 접근입니다.' : 
-            responseBody.code === 'NT' ? '존재하지 않는 용품입니다.' :
+            responseBody.code === 'AF' ? '잘못된 접근입니다.' :
+            responseBody.code === 'NT' ? '존재하지 않는 용품입니다.' : 
             responseBody.code === 'DBE' ? '서버에 문제가 있습니다.' : '';
-
+        
         const isSuccessed = responseBody !== null && responseBody.code === 'SU';
-        if (isSuccessed) {
+        if (!isSuccessed) {
             alert(message);
             return;
         }
 
         getToolList();
         unShow();
-    }
+    };
 
     // event handler: 용품 이름 변경 이벤트 처리 함수 //
     const onNameChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target;
         setName(value);
-    }
+    };
 
     // event handler: 용도 변경 이벤트 처리 함수 //
     const onPurposeChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target;
         setPurpose(value);
-    }
+    };
 
     // event handler: 개수 변경 이벤트 처리 함수 //
     const onCountChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -184,24 +184,23 @@ function PatchBox({ toolNumber, unShow, getToolList }: PatchBoxProps) {
         const isNumber = regexp.test(value);
         if (!isNumber) return;
         setCount(value);
-    }
+    };
 
     // event handler: 수정 버튼 클릭 이벤트 처리 함수 //
     const onUpdateButtonClickHandler = () => {
         if (!name || !purpose || !count) {
             alert('모든 값을 입력해주세요.');
             return;
-        } 
+        }
 
         const accessToken = cookies[ACCESS_TOKEN];
         if (!accessToken) return;
 
         const requestBody: PatchToolRequestDto = {
             name, purpose, count: Number(count)
-        }
-
-        patchToolRequest(requestBody, toolNumber, accessToken).then(patchToolResponse)
-    }
+        };
+        patchToolRequest(requestBody, toolNumber, accessToken).then(patchToolResponse);
+    };
 
     // effect: toolNumber가 변경될 시 실행할 함수 //
     useEffect(() => {
@@ -231,9 +230,10 @@ function PatchBox({ toolNumber, unShow, getToolList }: PatchBoxProps) {
             <div className='button disable' onClick={unShow}>취소</div>
         </div>
     )
+
 }
 
-// interface: 용품 리스트 아이템 Properties //
+// interface: 용품 리스트 아이템 컴포넌트 Properties //
 interface TableRowProps {
     tool: Tool;
     getToolList: () => void;
@@ -249,12 +249,12 @@ function TableRow({ tool, getToolList, onUpdateButtonClickHandler }: TableRowPro
     // function: delete tool response 처리 함수 //
     const deleteToolResponse = (responseBody: ResponseDto | null) => {
         const message = 
-            !responseBody ? '서버에 문제가 있습니다.' : 
-            responseBody.code === 'VF' ? '잘못된 접근입니다.' : 
-            responseBody.code === 'AF' ? '잘못된 접근입니다.' : 
-            responseBody.code === 'NT' ? '존재하지 않는 용품입니다.' : 
+            !responseBody ? '서버에 문제가 있습니다.' :
+            responseBody.code === 'VF' ? '잘못된 접근입니다.' :
+            responseBody.code === 'AF' ? '잘못된 접근입니다.' :
+            responseBody.code === 'NT' ? '존재하지 않는 용품입니다.' :
             responseBody.code === 'DBE' ? '서버에 문제가 있습니다.' : '';
-        
+
         const isSuccessed = responseBody !== null && responseBody.code === 'SU';
         if (!isSuccessed) {
             alert(message);
@@ -262,7 +262,7 @@ function TableRow({ tool, getToolList, onUpdateButtonClickHandler }: TableRowPro
         }
 
         getToolList();
-    }
+    };
 
     // event handler: 삭제 버튼 클릭 이벤트 처리 함수 //
     const onDeleteButtonClickHandler = () => {
@@ -272,7 +272,7 @@ function TableRow({ tool, getToolList, onUpdateButtonClickHandler }: TableRowPro
         const accessToken = cookies[ACCESS_TOKEN];
         if (!accessToken) return;
         deleteToolRequest(tool.toolNumber, accessToken).then(deleteToolResponse);
-    }
+    };
 
     // render: 용품 리스트 아이템 컴포넌트 렌더링 //
     return (
@@ -291,6 +291,7 @@ function TableRow({ tool, getToolList, onUpdateButtonClickHandler }: TableRowPro
             </div>
         </div>
     )
+
 }
 
 // component: 용품 관리 리스트 컴포넌트 //
@@ -310,7 +311,9 @@ export default function MM() {
     // state: 원본 리스트 상태 //
     const [originalList, setOriginalList] = useState<Tool[]>([]);
 
-    const { currentPage, totalPage, totalCount, viewList, pageList, setTotalList, initViewList,
+    const { 
+        currentPage, totalPage, totalCount, viewList, pageList,
+        setTotalList, initViewList,
         onPageClickHandler, onPreSectionClickHandler, onNextSectionClickHandler
     } = usePagination<Tool>();
 
@@ -318,65 +321,65 @@ export default function MM() {
     const getToolList = () => {
         const accessToken = cookies[ACCESS_TOKEN];
         if (!accessToken) return;
-        getToolListRequest(accessToken).then(getToolListResponse); // request를 잘 받아왔다면 이제 데이터를 뿌려줘야함
-    }
+        getToolListRequest(accessToken).then(getToolListResponse);
+    };
 
     // function: get tool list response 처리 함수 //
-    const getToolListResponse = (responseBody: GetToolListResponseDto | ResponseDto | null) => {
-        const message =
-            !responseBody ? '서버에 문제가 있습니다.' :
-            responseBody.code === 'AF' ? '잘못된 접근입니다.' :
-            responseBody.code === 'DBE' ? '서버에 문제가 있습니다.' : '';
+    const getToolListResponse = (resposenBody: GetToolListResponseDto | ResponseDto | null) => {
+        const message = 
+            !resposenBody ? '서버에 문제가 있습니다.' :
+            resposenBody.code === 'AF' ? '잘못된 접근입니다.' :
+            resposenBody.code === 'DBE' ? '서버에 문제가 있습니다.' : '';
 
-        const isSuccessed = responseBody !== null && responseBody.code === 'SU';
+        const isSuccessed = resposenBody !== null && resposenBody.code === 'SU';
         if (!isSuccessed) {
             alert(message);
             return;
         }
 
-        const { tools } = responseBody as GetToolListResponseDto;
+        const { tools } = resposenBody as GetToolListResponseDto;
         setTotalList(tools);
         setOriginalList(tools);
-    }
+    };
 
     // function: 등록 박스 뷰 상태 변경 함수 //
     const unShowPostBox = () => setShowPostBox(false);
 
     // function: 수정 박스 뷰 상태 변경 함수 //
     const unShowPatchBox = () => setShowPatchBox(false);
-    
+
     // event handler: 등록 버튼 클릭 이벤트 처리 함수 //
     const onPostButtonClickHandler = () => {
         setShowPostBox(true);
         setShowPatchBox(false);
-    }
+    };
 
     // event handler: 수정 버튼 클릭 이벤트 처리 함수 //
     const onUpdateButtonClickHandler = (toolNumber: number) => {
         setShowPatchBox(true);
         setPatchToolNumber(toolNumber);
-    }
+    };
 
-    // event handler: 검색어 변경 이벤트 처리 //
+    // event handler: 검색어 변경 이벤트 처리 함수 //
     const onSearchWordChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target;
         setSearchWord(value);
-    }
+    };
 
     // event handler: 검색 버튼 클릭 이벤트 처리 함수 //
-    const onSearchButtonClickHanlder = () => {
+    const onSearchButtonClickHandler = () => {
         const searchedToolList = originalList.filter(tool => tool.name.includes(searchWord));
         setTotalList(searchedToolList);
         initViewList(searchedToolList);
-    }
+    };
 
-    // effect: 컴포넌트 로드 시 용품 리스트 불러오기 함수 //
-    useEffect(getToolList, [])
+    // effect: 컴포넌트 로드시 용품 리스트 불러오기 함수 //
+    useEffect(getToolList, []);
 
     // render: 용품 관리 리스트 컴포넌트 렌더링 //
     return (
         <div id='mm-wrapper'>
-            {showPostBox && <PostBox unShow={unShowPostBox} getToolList={getToolList}/>}
+            {showPostBox && <PostBox unShow={unShowPostBox} getToolList={getToolList} />}
             {showPatchBox && <PatchBox unShow={unShowPatchBox} getToolList={getToolList} toolNumber={patchToolNumber} />}
             <div className='top'>
                 <div className='top-text'>전체 <span className='emphasis'>{totalCount}건</span> | 페이지 <span className='emphasis'>{currentPage}/{totalPage}</span></div>
@@ -398,11 +401,16 @@ export default function MM() {
                 </div>
             </div>
             <div className='bottom'>
-                <Pagination pageList={pageList} currentPage={currentPage} onPageClickHandler={onPageClickHandler} 
-                onPreSectionClickHandler={onPreSectionClickHandler} onNextSectionClickHandler={onNextSectionClickHandler} />
+                <Pagination 
+                    pageList={pageList} 
+                    currentPage={currentPage} 
+                    onPageClickHandler={onPageClickHandler}
+                    onPreSectionClickHandler={onPreSectionClickHandler}
+                    onNextSectionClickHandler={onNextSectionClickHandler}
+                />
                 <div className='search-box'>
                     <input className='search-input' value={searchWord} placeholder='검색어를 입력하세요.' onChange={onSearchWordChangeHandler} />
-                    <div className='button disable' onClick={onSearchButtonClickHanlder}>검색</div>
+                    <div className='button disable' onClick={onSearchButtonClickHandler}>검색</div>
                 </div>
             </div>
         </div>
