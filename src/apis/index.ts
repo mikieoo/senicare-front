@@ -5,7 +5,8 @@ import { SignInResponseDto } from "./dto/response/auth";
 import { GetNurseListResponseDto, GetSignInResponseDto } from "./dto/response/nurse";
 import { PatchToolRequestDto, PostToolRequestDto } from "./dto/request/tool";
 import { GetToolListResponseDto, GetToolResponseDto } from "./dto/response/tool";
-import { GetCustomerListResponseDto } from "./dto/response/customer";
+import { GetCustomerListResponseDto, GetCustomerResponseDto } from "./dto/response/customer";
+import { PatchCustomerRequestDto, PostCustomerRequestDto } from "./dto/request/customer";
 
 // variable: API URL 상수 //
 const SENICARE_API_DOMAIN = 'http://localhost:4000';
@@ -33,7 +34,10 @@ const DELETE_TOOL_API_URL = (toolNumber: number | string) => `${TOOL_MODULE_URL}
 
 const CUSTOMER_MODULE_URL = `${SENICARE_API_DOMAIN}/api/v1/customer`;
 
+const POST_CUSTOMER_API_URL = `${CUSTOMER_MODULE_URL}`;
 const GET_CUSTOMER_LIST_API_URL = `${CUSTOMER_MODULE_URL}`;
+const GET_CUSTOMER_API_URL = (customerNumber: number | string) => `${CUSTOMER_MODULE_URL}/${customerNumber}`;
+const PATCH_CUSTOMER_API_URL = (customerNumber: number | string) => `${CUSTOMER_MODULE_URL}/${customerNumber}`;
 const DELETE_CUSTOMER_API_URL = (customerNumber: number | string) => `${CUSTOMER_MODULE_URL}/${customerNumber}`;
 
 // function: Authorizarion Bearer 헤더 //
@@ -149,10 +153,34 @@ export const deleteToolRequest = async (toolNumber: number | string, accessToken
     return responseBody;
 };
 
+// function: post customer 요청 함수 //
+export const postCustomerRequest = async (requestBody: PostCustomerRequestDto, accessToken: string) => {
+    const responseBody = await axios.post(POST_CUSTOMER_API_URL, requestBody, bearerAuthorization(accessToken))
+        .then(responseDataHandler<ResponseDto>)
+        .catch(responseErrorHandler)
+    return responseBody;
+}
+
 // function: get customer list 요청 함수 //
 export const getCustomerListRequest = async (accessToken: string) => {
     const responseBody = await axios.get(GET_CUSTOMER_LIST_API_URL, bearerAuthorization(accessToken))
         .then(responseDataHandler<GetCustomerListResponseDto>)
+        .catch(responseErrorHandler);
+    return responseBody;
+}
+
+// function: get customer 요청 함수 //
+export const getCustomerRequest = async (customerNumber: number | string, accessToken: string) => {
+    const responseBody = await axios.get(GET_CUSTOMER_API_URL(customerNumber), bearerAuthorization(accessToken))
+        .then(responseDataHandler<GetCustomerResponseDto>)
+        .catch(responseErrorHandler);
+    return responseBody;
+}
+
+// function: patch customer 요청 함수 //
+export const patchCustomerRequest = async (requestBody: PatchCustomerRequestDto, customerNumbre: number | string, accessToken: string) => {
+    const responseBody = await axios.patch(PATCH_CUSTOMER_API_URL(customerNumbre), requestBody, bearerAuthorization(accessToken))
+        .then(responseDataHandler<ResponseDto>)
         .catch(responseErrorHandler);
     return responseBody;
 }
