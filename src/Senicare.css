@@ -1,7 +1,6 @@
 /*
-*  Senicare 프로젝트의 공통 CSS
+*   Senicare 프로젝트의 공통 CSS
 */
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 @font-face {
@@ -29,6 +28,7 @@ body {
 #main-wrapper {
     display: flex;
     justify-content: center;
+    
     padding: 24px;
     background-color: rgba(238, 238, 238, 0.5);
 }
@@ -132,7 +132,7 @@ body {
     height: 24px;
 
     background-size: 100% 100%;
-    
+
     cursor: pointer;
 }
 

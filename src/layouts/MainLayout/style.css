@@ -1,8 +1,8 @@
 #main-layout {
     display: grid;
-    grid-template: 
+    grid-template:
         "logo top" 77px
-        "side main" minmax(867px, auto)
+        "side main" minmax(944px, auto)
         / 257px minmax(1182px, 100%);
 }
 
@@ -15,11 +15,10 @@
 
     border-bottom: 1px solid rgba(233, 236, 239, 1);
     border-right: 1px solid rgba(233, 236, 239, 1);
-
-        
+    
     /* 드래그 방지 */
     user-select: none;
-    -webkit-user-select: none;
+    -webkit-user-select:none;
     -moz-user-select: none;
     -ms-user-select: none;
 }
@@ -54,8 +53,8 @@
     justify-content: space-between;
     align-items: center;
 
-    padding: 0 24px;
     border-bottom: 1px solid rgba(233, 236, 239, 1);
+    padding: 0 24px;
 
     user-select: none;
 }
@@ -74,7 +73,7 @@
 
 #layout-side-navigation .navigation {
     display: flex;
-    flex-direction:  column;
+    flex-direction: column;
     gap: 10px;
 }
 
@@ -89,6 +88,7 @@
     color: var(--gray-color);
     font-size: 16px;
     font-weight: 400;
+
 }
 
 #layout-side-navigation .navigation-item:hover {
@@ -98,6 +98,7 @@
 
 #layout-side-navigation .navigation-item.active {
     background-color: var(--primary-color);
+    
     color: rgba(255, 255, 255, 1);
 }
 
@@ -106,10 +107,6 @@
     height: 24px;
 
     background-size: 100% 100%;
-}
-
-#layout-side-navigation .icon.active {
-    opacity: 0.5;
 }
 
 .cs-icon {
@@ -146,10 +143,10 @@
     background-color: rgba(255, 255, 255, 1);
 }
 
-#main-wrapper .th{
+#main-wrapper .th {
     display: flex;
     gap: 80px;
-    
+
     padding: 15px 24px;
 
     color: rgba(64, 64, 64, 1);
@@ -170,10 +167,9 @@
     line-height: 20px;
 }
 
-/* ---------------
-*  메인 내부 스타일
-*/ ---------------
-
+/*  -------------------
+ *  메인 내부 스타일
+ */ -------------------
 #mm-wrapper,
 #cs-wrapper,
 #hr-wrapper {
@@ -184,7 +180,7 @@
     width: 1134px;
 }
 
-#mm-wrapper .top, 
+#mm-wrapper .top,
 #cs-wrapper .top,
 #hr-wrapper .top {
     display: flex;
@@ -192,7 +188,7 @@
     align-items: end;
 }
 
-#mm-wrapper .main,
+#mm-wrapper .main, 
 #cs-wrapper .main,
 #hr-wrapper .main {
     display: flex;
@@ -229,9 +225,9 @@
     color: rgba(64, 64, 64, 1);
 }
 
-#mm-wrapper .button .disable:hover,
-#cs-wrapper .button .disable:hover,
-#hr-wrapper .button .disable:hover {
+#mm-wrapper .button.disable:hover,
+#cs-wrapper .button.disable:hover,
+#hr-wrapper .button.disable:hover {
     cursor: pointer;
 }
 
