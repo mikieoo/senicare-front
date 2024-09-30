@@ -36,6 +36,9 @@ export default function CSDetail() {
         setTotalList, initViewList, ...paginationProps
     } = usePagination<CareRecord>();
 
+    // state: 용품 선택 셀렉터 오픈 여부 상태 //
+    const [showSelector, setShowSelector] = useState<boolean>(false);
+
     // variable: 담당자 여부 //
     const isCharger = charger === signInUser?.userId;
 
@@ -101,6 +104,11 @@ export default function CSDetail() {
         }
 
         navigator(CS_ABSOLUTE_PATH);
+    }
+
+    // event handler: 셀렉터 오픈 이벤트 처리 //
+    const onSelectorClickHandler = () => {
+        setShowSelector(!showSelector);
     }
 
     // event handler: 목록 버튼 클릭 이벤트 처리 //
@@ -185,8 +193,42 @@ export default function CSDetail() {
                 </div>
             </div>
             <div className='middle'>
-                <div className='title'></div>
-                <div className=''></div>
+                <div className='title'>기록 작성</div>
+                <div className='record-write-box'>
+                    <div className='record-write-content-box'>
+                        <div className='input-box' style={{ flex: 1 }}>
+                            <div className='label'>내용</div>
+                            <input className='input' placeholder='내용을 입력하세요.' />
+                        </div>
+                        <div className='button disable'>기록</div>
+                    </div>
+                    <div className='record-write-tool-box'>
+                        <div className='input-box'>
+                            <div className='label'>사용용품</div>
+                            {showSelector ? 
+                            <div className='selector close'>
+                                <div className='selected-item'>사용용품</div>
+                                <div className='arrow-down-button' onClick={onSelectorClickHandler}></div>
+                            </div>
+                            :
+                            <div className='selector open'>
+                                <div className='selected-item'>사용용품</div>
+                                <div className='arrow-up-button' onClick={onSelectorClickHandler}></div>
+                                <div className='selector-box'>
+                                    <div className='selector-option'>휠체어</div>
+                                    <div className='selector-option'>휠체어</div>
+                                    <div className='selector-option'>휠체어</div>
+                                    <div className='selector-option'>휠체어</div>
+                                </div>
+                            </div>
+                            }
+                        </div>
+                        <div className='input-box'>
+                            <div className='label'>개수</div>
+                            <input className='input' placeholder='개수를 입력하세요.' />
+                        </div>
+                    </div>
+                </div>
             </div>
             <div className='bottom'>
                 <div className='button primary' onClick={onListButtonClickHandler}>목록</div>
