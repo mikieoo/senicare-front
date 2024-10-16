@@ -1,4 +1,4 @@
-import { ChargedCustomer, Customer } from "src/types";
+import { ChargedCustomer } from "src/types";
 import ResponseDto from "../response.dto";
 
 // interface: get charged customer response body dto //
